@@ -1,0 +1,17 @@
+import express from "express";
+import dotenv from "dotenv";
+import connection from "./database/db.js";
+import Router from "./routes/route.js";
+import cors from "cors";
+import bodyParser from "body-parser";
+dotenv.config();
+const app=express();
+app.use(cors());
+app.use(express.static('public'));
+app.use(bodyParser.json({extended:true}));
+app.use(bodyParser.urlencoded({extended:true}));
+app.use('/',Router);
+const USERNAME=process.env.MongoDB_USERNAME;
+const PASSWORD=process.env.MongoDB_PASSWORD;
+connection(USERNAME,PASSWORD);
+app.listen(8000,console.log("server is running "));
